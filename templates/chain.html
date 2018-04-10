@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+
+Length of the chain: {{ length }} <br>
+
+Current time: <!-- {{ moment().format('LLL') }} -->
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Timestamp</th>
+        <th>Transactions</th>
+        <th>Proof</th>
+        <th>Previous hash</th>
+      </tr>
+    </thead>
+    {% for block in chain %}
+    <tbody>
+      <tr>
+        <td>{{ block['index'] }}</td>
+        <td>{{ block['timestamp'] }}</td>
+        <td class="text-center">
+        {% for trans in block['transactions'] %}
+            From
+            {{ trans['vin'][0]['sender'] }} <br>
+            To
+            {{ trans['vin'][0]['recipient'] }} <br>
+            Amount
+            {{ trans['vout'][0]['value'] }} BRC <br><br>
+        {% endfor %}
+        </td>
+        <td>{{ block['proof'] }}</td>
+        <td>{{ block['previous_hash'] }}</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+  </div>
+</div>
+
+
+{% endblock %}

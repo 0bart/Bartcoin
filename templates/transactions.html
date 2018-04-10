@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block page_content %}
+
+{% if not wallet_address %}
+<form method="POST">
+    {{ wtf.quick_form(form) }}
+</form>
+    <!--<div class="form-group">
+        <label class="col-sm-2 sr-only" for="address">Wallet address:</label>
+        <div class="col-sm-10">
+            <input name="wallet_add" class="form-control" id="focusedInput" type="text" placeholder="Wallet address...">
+        </div>
+        <button type="submit" name="submit" value="" class="btn btn-info">Search</button>
+    </div>-->
+
+
+{% elif wallet_address %}
+Summary for wallet: {{ wallet_address }} <br>
+Saldo for wallet: {{ saldo }} <br>
+Current time: <!-- {{ moment().format('LLL') }} -->
+
+<div class="table-responsive">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Amount</th>
+      </tr>
+    </thead>
+    {% for trans in transactions %}
+    <tbody>
+      <tr>
+        <td>{{ loop.index }}</td>
+        <td>{{ trans['vin'][0]['sender'] }}</td>
+        <td>{{ trans['vin'][0]['recipient'] }}</td>
+        <td>{{ trans['vout'][0]['value'] }} BRC</td>
+      </tr>
+    </tbody>
+    {% endfor %}
+  </table>
+  </div>
+</div>
+{% endif %}
+
+
+{% endblock %}

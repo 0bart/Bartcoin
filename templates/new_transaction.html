@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block page_content %}
+
+{% if not response %}
+
+{{ wtf.quick_form(form) }}
+
+    <!--<div class="form-group">
+        <div class="col-sm-6">
+            <input name="wallet_add" class="form-control" id="focusedInput" type="text" placeholder="Sender wallet address...">
+        </div>
+        <div class="col-sm-6">
+            <input name="recipient" class="form-control" id="focusedInput" type="text" placeholder="Recipient wallet address...">
+        </div>
+        <div class="col-sm-6">
+            <input name="amount" class="form-control" id="focusedInput" type="text" placeholder="Amount...">
+        </div>
+        <div class="col-sm-6">
+            <input name="sign" class="form-control" id="focusedInput" type="text" placeholder="Sign...">
+        </div>
+        <button type="submit" name="submit" value="" class="btn btn-info">Send!</button>
+    </div>-->
+
+
+{% elif response %}
+<h2>Transaction done!</h2>
+From {{ transaction_dict['sender'] }} was send {{ transaction_dict['amount'] }} BRC to {{ transaction_dict['recipient'] }}
+Message: {{ response['message'] }}
+Current time: <!-- {{ moment().format('LLL') }} -->
+
+{% endif %}
+
+
+{% endblock %}
